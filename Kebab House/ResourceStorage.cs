@@ -15,12 +15,10 @@ namespace Kebab_House
             this.availableResources = new Dictionary<string, int>();
         }
 
-        public void refillStock(List<Resource> receivedResources)
+        public void refillStock(Resource receivedResource)
         {
-            foreach (Resource resource in receivedResources)
-            {
-                availableResources[resource.name] = availableResources.GetValueOrDefault(resource.name, 0) + resource.amount;
-            }
+            availableResources.TryAdd(receivedResource.name, 0);   
+            availableResources[receivedResource.name] = availableResources.GetValueOrDefault(receivedResource.name, 0) + receivedResource.amount;
         }
 
         public bool consumeStock(List<Resource> requiredResources)
@@ -41,6 +39,16 @@ namespace Kebab_House
             }
 
             return true;
+        }
+
+        public void writeoutStorage()
+        {
+            // lambdas, noice
+            
+            availableResources.ToList().ForEach(resource =>
+            {
+                Console.WriteLine($"{resource.Key} - {resource.Value}");
+            });
         }
     }
 }
