@@ -30,7 +30,7 @@
 
                     Console.WriteLine("help - this command list");
                     Console.WriteLine("status - print the current state of the local storage");
-                    Console.WriteLine("recipes - manage known recipes\n");
+                    // Console.WriteLine("recipes - manage known recipes\n");
 
                     Console.WriteLine("refill - add resources to storage");
                     Console.WriteLine("cook - make kebab with a recipe (remove resources from storage)\n");
