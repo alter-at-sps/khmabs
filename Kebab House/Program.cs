@@ -30,7 +30,7 @@
 
                     Console.WriteLine("help - this command list");
                     Console.WriteLine("status - print the current state of the local storage");
-                    // Console.WriteLine("recipes - manage known recipes\n");
+                    Console.WriteLine("add-recipe - add a recipe to known recipes\n");
 
                     Console.WriteLine("refill - add resources to storage");
                     Console.WriteLine("cook - make kebab with a recipe (remove resources from storage)\n");
@@ -48,6 +48,55 @@
 
                     Console.Write('\n');
                 } 
+                else if (input == "add-recipe")
+                {
+                    Console.Write("Name of the new recipe: ");
+                    input = Console.ReadLine();
+
+                    if (input == null) continue;
+                    if (input == "") continue;
+
+                    string rec_name = input;
+
+                    foreach (Recipe recipe in known_recipes)
+                    {
+                        if (recipe.name == rec_name) {
+                            Console.WriteLine("Recipe name is already taken!");
+                            continue;
+                        }
+                    }
+
+                    Console.Write("\nAdd required resources to recipe, enter empty to finish recipe\n");
+
+                    Recipe new_recipe = new Recipe(rec_name, new List<Resource>());
+
+                    while (true)
+                    {
+                        Console.Write("New required resource: ");
+                        input = Console.ReadLine();
+
+                        if (input == null) break;
+                        if (input == "") break;
+
+                        string res_name = input;
+
+                        Console.Write("What amount is required: ");
+                        input = Console.ReadLine();
+
+                        if (input == null) continue;
+                        if (input == "") continue;
+
+                        int res_amount = Int32.Parse(input);
+
+                        new_recipe.requestedResources.Add(new Resource(res_name, res_amount));
+
+                        Console.WriteLine("\nCurrent recipe resources:");
+                        new_recipe.writeoutDescription();
+                    }
+
+                    known_recipes.Add(new_recipe);
+                    Console.WriteLine("New recipe added!\n");
+                }
                 else if (input == "refill")
                 {
                     Console.Write("What resource is being refilled: ");
